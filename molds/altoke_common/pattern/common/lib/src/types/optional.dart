@@ -159,6 +159,8 @@ class DmSome<T extends Object?> extends DmOptional<T> with DmSomeMappable<T> {
   /// The underlying value.
   final T value;
 
+  // dart_mappable compares `runtimeType.base`, which drops type arguments,
+  // and hashes only the fields. These operators compare `T` as well.
   @override
   bool operator ==(Object other) {
     if (other is! DmSome) return false;
@@ -180,6 +182,8 @@ class DmNone<T extends Object?> extends DmOptional<T> with DmNoneMappable<T> {
   /// {@macro common.none}
   const DmNone();
 
+  // dart_mappable compares `runtimeType.base`, which drops type arguments,
+  // and hashes only the fields. These operators compare `T` as well.
   @override
   bool operator ==(Object other) {
     if (other is! DmNone) return false;
