@@ -16,6 +16,8 @@ sealed class Optional<T extends Object?> {
 
   /// Creates an [Optional] with an absent value.
   const factory Optional.none() = None<T>;
+
+  Type get _typeArgument => T;
 }
 
 /// {@template common.some}
@@ -34,17 +36,14 @@ class Some<T extends Object?> extends Optional<T> {
 
   @override
   bool operator ==(Object other) {
-    if (other is! Some<T>) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
+    if (other is! Some) return false;
+    if (other._typeArgument != T) return false;
+    if (identical(this, other)) return true;
     return other.value == value;
   }
 
   @override
-  int get hashCode => Object.hashAll([runtimeType, value]);
+  int get hashCode => Object.hashAll([Some, T, value]);
 }
 
 /// {@template common.none}
@@ -60,12 +59,11 @@ class None<T extends Object?> extends Optional<T> {
 
   @override
   bool operator ==(Object other) {
-    if (other is! None<T>) {
-      return false;
-    }
-    return identical(this, other);
+    if (other is! None) return false;
+    if (other._typeArgument != T) return false;
+    return true;
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hashAll([None, T]);
 }{% endif %}
