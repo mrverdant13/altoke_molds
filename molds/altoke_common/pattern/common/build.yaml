@@ -1,0 +1,13 @@
+#{% if use_code_generation %}#
+targets:
+  $default:
+    builders:
+      #{% if use_dart_mappable %}#
+      dart_mappable_builder:
+        generate_for:
+          - lib/src/types/optional.dart
+        options:
+          generateMethods:
+            - stringify
+      #{% endif %}#
+#{% endif %}#
