@@ -44,7 +44,7 @@ class Some<T extends Object?> extends Optional<T> {
   }
 
   @override
-  int get hashCode => runtimeType.hashCode ^ value.hashCode;
+  int get hashCode => Object.hashAll([runtimeType, value]);
 }
 
 /// {@template common.none}
