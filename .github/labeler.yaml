@@ -1,0 +1,91 @@
+"m:altoke_app":
+  - changed-files:
+      - any-glob-to-any-file:
+          - molds/altoke_app/**
+  - head-branch:
+      - ^altoke_app(/|$)
+
+"m:altoke_common":
+  - changed-files:
+      - any-glob-to-any-file:
+          - molds/altoke_common/**
+  - head-branch:
+      - ^altoke_common(/|$)
+
+"m:altoke_dart_package":
+  - changed-files:
+      - any-glob-to-any-file:
+          - molds/altoke_dart_package/**
+  - head-branch:
+      - ^altoke_dart_package(/|$)
+
+"m:altoke_entities":
+  - changed-files:
+      - any-glob-to-any-file:
+          - molds/altoke_entities/**
+  - head-branch:
+      - ^altoke_entities(/|$)
+
+"m:altoke_local_database":
+  - changed-files:
+      - any-glob-to-any-file:
+          - molds/altoke_local_database/**
+  - head-branch:
+      - ^altoke_local_database(/|$)
+
+"m:altoke_reactive_caches":
+  - changed-files:
+      - any-glob-to-any-file:
+          - molds/altoke_reactive_caches/**
+  - head-branch:
+      - ^altoke_reactive_caches(/|$)
+
+bot:
+  - head-branch:
+      - ^dependabot/.+
+
+build:
+  - head-branch:
+      - ^dependabot/pub/.+
+
+chore:
+  - head-branch:
+      - (^|/)chore(/|$)
+
+ci:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .github/**
+  - head-branch:
+      - (^|/)ci(/|$)
+
+docs:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "**/CHANGELOG.md"
+          - "**/README.md"
+          - CONTRIBUTING.md
+          - doc/**
+  - head-branch:
+      - (^|/)docs(/|$)
+
+feat:
+  - head-branch:
+      - (^|/)feat(/|$)
+
+fix:
+  - head-branch:
+      - (^|/)fix(/|$)
+
+refactor:
+  - head-branch:
+      - (^|/)refactor(/|$)
+
+test:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "**/test/**"
+          - "**/e2e/**"
+          - "**/*_test.dart"
+  - head-branch:
+      - (^|/)test(/|$)
