@@ -1,39 +1,39 @@
-altoke_app:
+"m:altoke_app":
   - changed-files:
       - any-glob-to-any-file:
           - molds/altoke_app/**
   - head-branch:
       - ^altoke_app(/|$)
 
-altoke_common:
+"m:altoke_common":
   - changed-files:
       - any-glob-to-any-file:
           - molds/altoke_common/**
   - head-branch:
       - ^altoke_common(/|$)
 
-altoke_dart_package:
+"m:altoke_dart_package":
   - changed-files:
       - any-glob-to-any-file:
           - molds/altoke_dart_package/**
   - head-branch:
       - ^altoke_dart_package(/|$)
 
-altoke_entities:
+"m:altoke_entities":
   - changed-files:
       - any-glob-to-any-file:
           - molds/altoke_entities/**
   - head-branch:
       - ^altoke_entities(/|$)
 
-altoke_local_database:
+"m:altoke_local_database":
   - changed-files:
       - any-glob-to-any-file:
           - molds/altoke_local_database/**
   - head-branch:
       - ^altoke_local_database(/|$)
 
-altoke_reactive_caches:
+"m:altoke_reactive_caches":
   - changed-files:
       - any-glob-to-any-file:
           - molds/altoke_reactive_caches/**
