@@ -1,0 +1,20 @@
+name: altoke_common
+ignore:
+  - "**/.dart_tool/**"
+  - "**/.git/**"
+  - "**/build/**"
+  - "**/coverage/**"
+  - "**/*.freezed.dart"
+  - "**/*.mapper.dart"
+  - "**/test/optimized_test.dart"
+  - "**/*.iml"
+  - "**/pubspec.lock"
+replacements:
+  - from: altoke_common
+    to: common
+  - from:
+      pattern: "^common/"
+    to: "{% if requirements_met %}common{% endif %}/"
+  - from:
+      pattern: "^REQUIREMENTS\\.md$"
+    to: "{% unless requirements_met %}REQUIREMENTS.md{% endunless %}"
