@@ -6,6 +6,10 @@ publish_to: none
 environment:
   sdk: ">=3.12.1 <4.0.0"
 
+{% if use_meta -%}
+dependencies:
+  meta: ^1.18.0
+{% endif %}
 dev_dependencies:
   test: ^1.31.1
   very_good_analysis: ^10.0.0
