@@ -370,5 +370,189 @@ void main() {
         expect(subject, 'ENone<String>()');
       });
     });
+  });{% endif %}{% if use_dart_mappable %}group(Optional, () {
+    group('some', () {
+      test('| returns a present value', () {
+        const subject = Optional.some('value');
+        expect(subject, isA<Optional<String>>());
+        expect(subject, isA<DmSome<String>>());
+      });
+    });
+
+    group('none', () {
+      test('| returns an absent value', () {
+        const subject = Optional<String>.none();
+        expect(subject, isA<Optional<String>>());
+        expect(subject, isA<DmNone<String>>());
+      });
+    });
+  });
+
+  group(DmSome, () {
+    group('==', () {
+      test('| returns true for the same value', () {
+        const instance = DmSome('some-value');
+        final subject = instance == const DmSome('some-value');
+        expect(subject, isTrue);
+      });
+
+      test('| returns false for a different value', () {
+        const instance = DmSome('some-value');
+        final subject = instance == const DmSome('other-value');
+        expect(subject, isFalse);
+      });
+
+      test('| returns false for another value type', () {
+        const Object instance = DmSome('some-value');
+        final subject = instance == const DmSome<int>(42);
+        expect(subject, isFalse);
+      });
+
+      test('| returns false for a supertype argument', () {
+        const Object instance = DmSome<int>(1);
+        final subject = instance == const DmSome<num>(1);
+        expect(subject, isFalse);
+      });
+
+      test('| returns false for a subtype argument', () {
+        const Object instance = DmSome<num>(1);
+        final subject = instance == const DmSome<int>(1);
+        expect(subject, isFalse);
+      });
+
+      test('| returns false for an absent value', () {
+        const Object instance = DmSome('some-value');
+        final subject = instance == const DmNone<double>();
+        expect(subject, isFalse);
+      });
+    });
+
+    group('hashCode', () {
+      test('| matches the same value', () {
+        const instance = DmSome('some-value');
+        final subject = instance.hashCode;
+        expect(subject, const DmSome('some-value').hashCode);
+      });
+
+      test('| does not match a different value', () {
+        const instance = DmSome('some-value');
+        final subject = instance.hashCode;
+        expect(subject, isNot(const DmSome('other-value').hashCode));
+      });
+
+      test('| does not match another value type', () {
+        const instance = DmSome('some-value');
+        final subject = instance.hashCode;
+        expect(subject, isNot(const DmSome<int>(42).hashCode));
+      });
+
+      test('| does not match a different type argument', () {
+        const instance = DmSome<int>(1);
+        final subject = instance.hashCode;
+        expect(subject, isNot(const DmSome<num>(1).hashCode));
+      });
+
+      test('| does not match an absent value', () {
+        const instance = DmSome('some-value');
+        final subject = instance.hashCode;
+        expect(subject, isNot(const DmNone<double>().hashCode));
+      });
+    });
+
+    group('toString', () {
+      test('| describes the present value', () {
+        const instance = DmSome('some-value');
+        final subject = instance.toString();
+        expect(subject, 'DmSome(value: some-value)');
+      });
+    });
+  });
+
+  group(DmNone, () {
+    group('==', () {
+      test('| returns true for the same type', () {
+        const instance = DmNone<String>();
+        final subject = instance == const DmNone<String>();
+        expect(subject, isTrue);
+      });
+
+      test('| returns true for another instance', () {
+        // Distinct instances: a const call would canonicalize them.
+        // ignore: prefer_const_constructors
+        final instance = DmNone<String>();
+        // Distinct instances: a const call would canonicalize them.
+        // ignore: prefer_const_constructors
+        final subject = instance == DmNone<String>();
+        expect(subject, isTrue);
+      });
+
+      test('| returns false for a supertype argument', () {
+        const Object instance = DmNone<int>();
+        final subject = instance == const DmNone<num>();
+        expect(subject, isFalse);
+      });
+
+      test('| returns false for a subtype argument', () {
+        const Object instance = DmNone<num>();
+        final subject = instance == const DmNone<int>();
+        expect(subject, isFalse);
+      });
+
+      test('| returns false for another type', () {
+        const Object instance = DmNone<String>();
+        final subject = instance == const DmNone<int>();
+        expect(subject, isFalse);
+      });
+
+      test('| returns false for a present value', () {
+        const Object instance = DmNone<String>();
+        final subject = instance == const DmSome<int>(42);
+        expect(subject, isFalse);
+      });
+    });
+
+    group('hashCode', () {
+      test('| matches the same type', () {
+        const instance = DmNone<String>();
+        final subject = instance.hashCode;
+        expect(subject, const DmNone<String>().hashCode);
+      });
+
+      test('| matches another instance', () {
+        // Distinct instances: a const call would canonicalize them.
+        // ignore: prefer_const_constructors
+        final instance = DmNone<String>();
+        final subject = instance.hashCode;
+        // Distinct instances: a const call would canonicalize them.
+        // ignore: prefer_const_constructors
+        expect(subject, DmNone<String>().hashCode);
+      });
+
+      test('| does not match a different type argument', () {
+        const instance = DmNone<int>();
+        final subject = instance.hashCode;
+        expect(subject, isNot(const DmNone<num>().hashCode));
+      });
+
+      test('| does not match another type', () {
+        const instance = DmNone<String>();
+        final subject = instance.hashCode;
+        expect(subject, isNot(const DmNone<int>().hashCode));
+      });
+
+      test('| does not match a present value', () {
+        const instance = DmNone<String>();
+        final subject = instance.hashCode;
+        expect(subject, isNot(const DmSome<int>(42).hashCode));
+      });
+    });
+
+    group('toString', () {
+      test('| describes the absent value', () {
+        const instance = DmNone<String>();
+        final subject = instance.toString();
+        expect(subject, 'DmNone()');
+      });
+    });
   });{% endif %}
 }

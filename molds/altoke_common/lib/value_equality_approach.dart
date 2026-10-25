@@ -1,5 +1,13 @@
 /// Value-equality approaches the mold can generate.
 enum ValueEqualityApproach {
+  /// `dart_mappable` value equality.
+  dartMappable(
+    id: 'dart_mappable',
+    label: 'dart_mappable',
+    usesMeta: true,
+    usesCodeGeneration: true,
+  ),
+
   /// Manual `==` and `hashCode` overrides.
   overrides(
     id: 'overrides',
@@ -28,7 +36,7 @@ enum ValueEqualityApproach {
   static const variableKey = 'value_equality_approach';
 
   /// Approach used when the caller does not choose one.
-  static const defaultApproach = ValueEqualityApproach.overrides;
+  static const defaultApproach = ValueEqualityApproach.dartMappable;
 
   /// Stable value stored for this approach.
   final String id;
