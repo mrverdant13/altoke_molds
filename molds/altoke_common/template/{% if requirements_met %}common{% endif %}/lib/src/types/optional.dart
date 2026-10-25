@@ -83,8 +83,6 @@ sealed class Optional<T extends Object?> extends Equatable {
 
   /// Creates an [Optional] with an absent value.
   const factory Optional.none() = ENone<T>;
-
-  Type get _typeArgument => T;
 }
 
 /// {@template common.some}
@@ -103,17 +101,6 @@ class ESome<T extends Object?> extends Optional<T> {
   /// The values used to determine equality.
   @override
   List<Object?> get props => [value];
-
-  @override
-  bool operator ==(Object other) {
-    if (other is! ESome) return false;
-    if (other._typeArgument != T) return false;
-    if (identical(this, other)) return true;
-    return other.value == value;
-  }
-
-  @override
-  int get hashCode => Object.hashAll([ESome, T, value]);
 }
 
 /// {@template common.none}
@@ -129,14 +116,4 @@ class ENone<T extends Object?> extends Optional<T> {
   /// The values used to determine equality.
   @override
   List<Object?> get props => const [];
-
-  @override
-  bool operator ==(Object other) {
-    if (other is! ENone) return false;
-    if (other._typeArgument != T) return false;
-    return true;
-  }
-
-  @override
-  int get hashCode => Object.hashAll([ENone, T]);
 }{% endif %}
