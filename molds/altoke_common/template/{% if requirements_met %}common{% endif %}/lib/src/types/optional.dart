@@ -1,4 +1,7 @@
-{% if use_meta -%}
+{% if use_equatable -%}
+import 'package:equatable/equatable.dart';
+{% endif %}
+{%- if use_meta -%}
 import 'package:meta/meta.dart';
 
 {% endif -%}
@@ -66,4 +69,51 @@ class None<T extends Object?> extends Optional<T> {
 
   @override
   int get hashCode => Object.hashAll([None, T]);
+}{% endif %}
+{%- if use_equatable %}
+/// {@template common.optional}
+/// A representation of an optional value.
+/// {@endtemplate}
+sealed class Optional<T extends Object?> extends Equatable {
+  /// {@macro common.optional}
+  const Optional();
+
+  /// Creates an [Optional] with a present value.
+  const factory Optional.some(T value) = ESome<T>;
+
+  /// Creates an [Optional] with an absent value.
+  const factory Optional.none() = ENone<T>;
+}
+
+/// {@template common.some}
+/// A representation of a present value.
+/// {@endtemplate}
+class ESome<T extends Object?> extends Optional<T> {
+  /// {@macro common.some}
+  const ESome(this.value);
+
+  /// The underlying value.
+  final T value;
+
+  @override
+  String toString() => 'ESome<$T>(value: $value)';
+
+  /// The values used to determine equality.
+  @override
+  List<Object?> get props => [value];
+}
+
+/// {@template common.none}
+/// A representation of an absent value.
+/// {@endtemplate}
+class ENone<T extends Object?> extends Optional<T> {
+  /// {@macro common.none}
+  const ENone();
+
+  @override
+  String toString() => 'ENone<$T>()';
+
+  /// The values used to determine equality.
+  @override
+  List<Object?> get props => const [];
 }{% endif %}
