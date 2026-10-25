@@ -22,6 +22,14 @@ enum ValueEqualityApproach {
     label: 'Equatable',
     usesMeta: false,
     usesCodeGeneration: false,
+  ),
+
+  /// `freezed` value equality.
+  freezed(
+    id: 'freezed',
+    label: 'freezed',
+    usesMeta: false,
+    usesCodeGeneration: true,
   );
 
   /// Creates an approach identified by [id].

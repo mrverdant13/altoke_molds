@@ -4,10 +4,17 @@ import 'package:dart_mappable/dart_mappable.dart';
 {%- if use_equatable -%}
 import 'package:equatable/equatable.dart';
 {% endif %}
+{%- if use_freezed -%}
+import 'package:freezed_annotation/freezed_annotation.dart';
+{% endif %}
 {%- if use_meta -%}
 import 'package:meta/meta.dart';
 
 {% endif -%}
+{%- if use_freezed %}
+part 'optional.freezed.dart';
+
+{% endif %}
 {%- if use_dart_mappable %}
 part 'optional.mapper.dart';
 
@@ -189,4 +196,22 @@ class DmNone<T extends Object?> extends Optional<T> with DmNoneMappable<T> {
 
   @override
   int get hashCode => Object.hashAll([DmNone, T]);
+}{% endif %}
+{%- if use_freezed %}
+/// {@template common.optional}
+/// A representation of an optional value.
+/// {@endtemplate}
+@Freezed(copyWith: false)
+class Optional<T extends Object?> with _$Optional<T> {
+  /// {@macro common.optional}
+  const Optional._();
+
+  /// Creates an [Optional] with a present value.
+  const factory Optional.some(
+    /// The underlying value.
+    T value,
+  ) = FSome<T>;
+
+  /// Creates an [Optional] with an absent value.
+  const factory Optional.none() = FNone<T>;
 }{% endif %}

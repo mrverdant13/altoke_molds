@@ -13,6 +13,9 @@ dependencies:
   {% if use_equatable %}
   equatable: ^2.0.8
   {% endif %}
+  {% if use_freezed %}
+  freezed_annotation: ^3.1.0
+  {% endif %}
   {% if use_meta %}
   meta: ^1.18.0
   {% endif %}
@@ -22,6 +25,9 @@ dev_dependencies:
   {% endif %}
   {% if use_dart_mappable %}
   dart_mappable_builder: ^4.6.3
+  {% endif %}
+  {% if use_freezed %}
+  freezed: ^3.2.3
   {% endif %}
   test: ^1.31.1
   very_good_analysis: ^10.0.0

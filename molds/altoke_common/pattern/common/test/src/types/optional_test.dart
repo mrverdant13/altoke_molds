@@ -562,5 +562,192 @@ void main() {
       });
     });
   });
+  /*x{% endif %}x*/
+  /*x{% if use_freezed %}x*/
+  group(FOptional, () {
+    group('some', () {
+      test('| returns a present value', () {
+        const subject = FOptional.some('value');
+        expect(subject, isA<FOptional<String>>());
+        expect(subject, isA<FSome<String>>());
+      });
+    });
+
+    group('none', () {
+      test('| returns an absent value', () {
+        const subject = FOptional<String>.none();
+        expect(subject, isA<FOptional<String>>());
+        expect(subject, isA<FNone<String>>());
+      });
+    });
+  });
+
+  group(FSome, () {
+    group('==', () {
+      test('| returns true for the same value', () {
+        const instance = FSome('some-value');
+        final subject = instance == const FSome('some-value');
+        expect(subject, isTrue);
+      });
+
+      test('| returns false for a different value', () {
+        const instance = FSome('some-value');
+        final subject = instance == const FSome('other-value');
+        expect(subject, isFalse);
+      });
+
+      test('| returns false for another value type', () {
+        const Object instance = FSome('some-value');
+        final subject = instance == const FSome<int>(42);
+        expect(subject, isFalse);
+      });
+
+      test('| returns false for a supertype argument', () {
+        const Object instance = FSome<int>(1);
+        final subject = instance == const FSome<num>(1);
+        expect(subject, isFalse);
+      });
+
+      test('| returns false for a subtype argument', () {
+        const Object instance = FSome<num>(1);
+        final subject = instance == const FSome<int>(1);
+        expect(subject, isFalse);
+      });
+
+      test('| returns false for an absent value', () {
+        const Object instance = FSome('some-value');
+        final subject = instance == const FNone<double>();
+        expect(subject, isFalse);
+      });
+    });
+
+    group('hashCode', () {
+      test('| matches the same value', () {
+        const instance = FSome('some-value');
+        final subject = instance.hashCode;
+        expect(subject, const FSome('some-value').hashCode);
+      });
+
+      test('| does not match a different value', () {
+        const instance = FSome('some-value');
+        final subject = instance.hashCode;
+        expect(subject, isNot(const FSome('other-value').hashCode));
+      });
+
+      test('| does not match another value type', () {
+        const instance = FSome('some-value');
+        final subject = instance.hashCode;
+        expect(subject, isNot(const FSome<int>(42).hashCode));
+      });
+
+      test('| does not match a different type argument', () {
+        const instance = FSome<int>(1);
+        final subject = instance.hashCode;
+        expect(subject, isNot(const FSome<num>(1).hashCode));
+      });
+
+      test('| does not match an absent value', () {
+        const instance = FSome('some-value');
+        final subject = instance.hashCode;
+        expect(subject, isNot(const FNone<double>().hashCode));
+      });
+    });
+
+    group('toString', () {
+      test('| describes the present value', () {
+        const instance = FSome('some-value');
+        final subject = instance.toString();
+        expect(subject, 'FOptional<String>.some(value: some-value)');
+      });
+    });
+  });
+
+  group(FNone, () {
+    group('==', () {
+      test('| returns true for the same type', () {
+        const instance = FNone<String>();
+        final subject = instance == const FNone<String>();
+        expect(subject, isTrue);
+      });
+
+      test('| returns true for another instance', () {
+        // Distinct instances: a const call would canonicalize them.
+        // ignore: prefer_const_constructors
+        final instance = FNone<String>();
+        // Distinct instances: a const call would canonicalize them.
+        // ignore: prefer_const_constructors
+        final subject = instance == FNone<String>();
+        expect(subject, isTrue);
+      });
+
+      test('| returns false for a supertype argument', () {
+        const Object instance = FNone<int>();
+        final subject = instance == const FNone<num>();
+        expect(subject, isFalse);
+      });
+
+      test('| returns false for a subtype argument', () {
+        const Object instance = FNone<num>();
+        final subject = instance == const FNone<int>();
+        expect(subject, isFalse);
+      });
+
+      test('| returns false for another type', () {
+        const Object instance = FNone<String>();
+        final subject = instance == const FNone<int>();
+        expect(subject, isFalse);
+      });
+
+      test('| returns false for a present value', () {
+        const Object instance = FNone<String>();
+        final subject = instance == const FSome<int>(42);
+        expect(subject, isFalse);
+      });
+    });
+
+    group('hashCode', () {
+      test('| matches the same type', () {
+        const instance = FNone<String>();
+        final subject = instance.hashCode;
+        expect(subject, const FNone<String>().hashCode);
+      });
+
+      test('| matches another instance', () {
+        // Distinct instances: a const call would canonicalize them.
+        // ignore: prefer_const_constructors
+        final instance = FNone<String>();
+        final subject = instance.hashCode;
+        // Distinct instances: a const call would canonicalize them.
+        // ignore: prefer_const_constructors
+        expect(subject, FNone<String>().hashCode);
+      });
+
+      test('| does not match a different type argument', () {
+        const instance = FNone<int>();
+        final subject = instance.hashCode;
+        expect(subject, isNot(const FNone<num>().hashCode));
+      });
+
+      test('| does not match another type', () {
+        const instance = FNone<String>();
+        final subject = instance.hashCode;
+        expect(subject, isNot(const FNone<int>().hashCode));
+      });
+
+      test('| does not match a present value', () {
+        const instance = FNone<String>();
+        final subject = instance.hashCode;
+        expect(subject, isNot(const FSome<int>(42).hashCode));
+      });
+    });
+
+    group('toString', () {
+      test('| describes the absent value', () {
+        const instance = FNone<String>();
+        final subject = instance.toString();
+        expect(subject, 'FOptional<String>.none()');
+      });
+    });
+  });
   /*x{% endif %}*/
 }
