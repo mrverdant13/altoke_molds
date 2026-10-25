@@ -6,6 +6,14 @@ enum ValueEqualityApproach {
     label: 'Overrides',
     usesMeta: true,
     usesCodeGeneration: false,
+  ),
+
+  /// `Equatable` value equality.
+  equatable(
+    id: 'equatable',
+    label: 'Equatable',
+    usesMeta: false,
+    usesCodeGeneration: false,
   );
 
   /// Creates an approach identified by [id].
