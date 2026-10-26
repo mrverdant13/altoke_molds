@@ -17,6 +17,9 @@ on:
       - .github/workflows/altoke_common.yaml
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   pattern:
     name: Pattern
