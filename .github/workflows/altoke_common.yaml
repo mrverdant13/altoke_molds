@@ -33,6 +33,8 @@ jobs:
           sdk: 3.13.3
       - name: Install dependencies
         run: dart pub get
+      - name: Format
+        run: dart format --set-exit-if-changed .
       - name: Analyze
         run: dart analyze --fatal-infos --fatal-warnings
       - name: Test
