@@ -111,10 +111,8 @@ void main() {
 
       test('| returns true for another instance', () {
         // Distinct instances: a const call would canonicalize them.
-        // ignore: prefer_const_constructors
         final instance = None<String>();
         // Distinct instances: a const call would canonicalize them.
-        // ignore: prefer_const_constructors
         final subject = instance == None<String>();
         expect(subject, isTrue);
       });
@@ -153,11 +151,9 @@ void main() {
 
       test('| matches another instance', () {
         // Distinct instances: a const call would canonicalize them.
-        // ignore: prefer_const_constructors
         final instance = None<String>();
         final subject = instance.hashCode;
         // Distinct instances: a const call would canonicalize them.
-        // ignore: prefer_const_constructors
         expect(subject, None<String>().hashCode);
       });
 
@@ -298,10 +294,8 @@ void main() {
 
       test('| returns true for another instance', () {
         // Distinct instances: a const call would canonicalize them.
-        // ignore: prefer_const_constructors
         final instance = ENone<String>();
         // Distinct instances: a const call would canonicalize them.
-        // ignore: prefer_const_constructors
         final subject = instance == ENone<String>();
         expect(subject, isTrue);
       });
@@ -340,11 +334,9 @@ void main() {
 
       test('| matches another instance', () {
         // Distinct instances: a const call would canonicalize them.
-        // ignore: prefer_const_constructors
         final instance = ENone<String>();
         final subject = instance.hashCode;
         // Distinct instances: a const call would canonicalize them.
-        // ignore: prefer_const_constructors
         expect(subject, ENone<String>().hashCode);
       });
 
@@ -485,10 +477,8 @@ void main() {
 
       test('| returns true for another instance', () {
         // Distinct instances: a const call would canonicalize them.
-        // ignore: prefer_const_constructors
         final instance = DmNone<String>();
         // Distinct instances: a const call would canonicalize them.
-        // ignore: prefer_const_constructors
         final subject = instance == DmNone<String>();
         expect(subject, isTrue);
       });
@@ -527,11 +517,9 @@ void main() {
 
       test('| matches another instance', () {
         // Distinct instances: a const call would canonicalize them.
-        // ignore: prefer_const_constructors
         final instance = DmNone<String>();
         final subject = instance.hashCode;
         // Distinct instances: a const call would canonicalize them.
-        // ignore: prefer_const_constructors
         expect(subject, DmNone<String>().hashCode);
       });
 
@@ -672,10 +660,8 @@ void main() {
 
       test('| returns true for another instance', () {
         // Distinct instances: a const call would canonicalize them.
-        // ignore: prefer_const_constructors
         final instance = FNone<String>();
         // Distinct instances: a const call would canonicalize them.
-        // ignore: prefer_const_constructors
         final subject = instance == FNone<String>();
         expect(subject, isTrue);
       });
@@ -714,11 +700,9 @@ void main() {
 
       test('| matches another instance', () {
         // Distinct instances: a const call would canonicalize them.
-        // ignore: prefer_const_constructors
         final instance = FNone<String>();
         final subject = instance.hashCode;
         // Distinct instances: a const call would canonicalize them.
-        // ignore: prefer_const_constructors
         expect(subject, FNone<String>().hashCode);
       });
 
