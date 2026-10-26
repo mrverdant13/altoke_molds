@@ -1,0 +1,31 @@
+name: altoke_common e2e
+
+concurrency:
+  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.ref }}
+
+on:
+  workflow_dispatch:
+
+jobs:
+  e2e:
+    name: End to end
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: molds/altoke_common/e2e
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+      - name: Install Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 3.13.3
+      - name: Install Foundry
+        run: dart pub global activate foundry_cli 0.0.1-dev.2
+      - name: Install dependencies
+        run: dart pub get
+      - name: Analyze
+        run: dart analyze --fatal-infos --fatal-warnings
+      - name: Test
+        run: dart test --run-skipped --tags e2e
