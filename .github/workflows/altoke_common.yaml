@@ -40,6 +40,7 @@ jobs:
 
   e2e:
     name: End to end
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -58,4 +59,4 @@ jobs:
       - name: Analyze
         run: dart analyze --fatal-infos --fatal-warnings
       - name: Test
-        run: dart test
+        run: dart test --run-skipped --tags e2e
