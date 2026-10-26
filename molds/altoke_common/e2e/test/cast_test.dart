@@ -4,7 +4,6 @@ library;
 import 'dart:io';
 
 import 'package:altoke_common/value_equality_approach.dart';
-import 'package:coverage/coverage.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
@@ -48,9 +47,13 @@ Future<void> _expectCleanCast(ValueEqualityApproach approach) async {
     ['analyze', '--fatal-infos', '--fatal-warnings', '.'],
     package,
   );
-  final coverageDir = Directory(p.join(package.path, 'coverage'));
-  await _run('dart', ['test', '--coverage=${coverageDir.path}'], package);
-  await _expectFullCoverage(package, coverageDir);
+  final coverageFile = File(p.join(package.path, 'coverage', 'lcov.info'));
+  await _run(
+    'dart',
+    ['test', '--coverage-path=${coverageFile.path}'],
+    package,
+  );
+  await _expectFullCoverage(coverageFile);
 }
 
 Future<void> _expectRequirementsOnly(ValueEqualityApproach approach) async {
@@ -95,29 +98,9 @@ Future<Directory> _cast(
   return output;
 }
 
-Future<void> _expectFullCoverage(
-  Directory package,
-  Directory coverageDir,
-) async {
-  final files = <File>[];
-  await for (final entity in coverageDir.list(recursive: true)) {
-    if (entity is File && entity.path.endsWith('.json')) {
-      files.add(entity);
-    }
-  }
-  expect(files, isNotEmpty);
-
-  // `/tmp` is a symlink on macOS. Coverage file URIs use the resolved path,
-  // and the resolver only keeps sources under [packagePath].
-  final packagePath = await package.resolveSymbolicLinks();
-  final hitmap = await HitMap.parseFiles(files, packagePath: packagePath);
-  final resolver = await Resolver.create(packagePath: packagePath);
-  final lcov = hitmap.formatLcov(
-    resolver,
-    basePath: packagePath,
-    reportOn: [p.join(packagePath, 'lib')],
-  );
-  final filtered = _withoutGeneratedRecords(lcov);
+Future<void> _expectFullCoverage(File coverageFile) async {
+  expect(coverageFile.existsSync(), isTrue);
+  final filtered = _withoutGeneratedRecords(await coverageFile.readAsString());
   final missed = _missedLines(filtered);
   expect(missed, isEmpty, reason: 'Uncovered lines:\n${missed.join('\n')}');
   expect(
