@@ -1,3 +1,6 @@
+@Tags(['e2e'])
+library;
+
 import 'dart:io';
 
 import 'package:altoke_common/value_equality_approach.dart';
