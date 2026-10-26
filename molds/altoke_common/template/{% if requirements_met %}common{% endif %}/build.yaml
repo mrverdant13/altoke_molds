@@ -10,4 +10,13 @@ targets:
           generateMethods:
             - stringify
       {% endif %}
+      {% if use_freezed %}
+      freezed:
+        generate_for:
+          - lib/src/types/optional.dart
+        options:
+          copy_with: false
+          map: false
+          when: false
+      {% endif %}
 {% endif %}

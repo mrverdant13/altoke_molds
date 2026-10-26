@@ -5,4 +5,7 @@ analyzer:
     {% if use_dart_mappable %}
     - lib/**.mapper.dart
     {% endif %}
+    {% if use_freezed %}
+    - lib/**.freezed.dart
+    {% endif %}
 {% endif %}

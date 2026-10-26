@@ -1,13 +1,25 @@
+/*remove-start*/
+// freezed_annotation exports the same elements while every approach shares
+// this file.
+// ignore_for_file: unnecessary_import
+/*remove-end-x*/
 /*{% if use_dart_mappable -%}*/
 import 'package:dart_mappable/dart_mappable.dart';
 /*{% endif %}*/
 /*{%- if use_equatable -%}*/
 import 'package:equatable/equatable.dart';
 /*{% endif %}*/
+/*{%- if use_freezed -%}*/
+import 'package:freezed_annotation/freezed_annotation.dart';
+/*{% endif %}*/
 /*{%- if use_meta -%}*/
 import 'package:meta/meta.dart';
 
 /*{% endif -%}*/
+/*{%- if use_freezed %}*/
+part 'optional.freezed.dart';
+
+/*{% endif %}*/
 /*{%- if use_dart_mappable %}*/
 part 'optional.mapper.dart';
 
@@ -193,5 +205,25 @@ class DmNone<T extends Object?> extends DmOptional<T> with DmNoneMappable<T> {
 
   @override
   int get hashCode => Object.hashAll([DmNone, T]);
+}
+
+/*x{% endif %}*/
+/*{%- if use_freezed %}*/
+/// {@template common.optional}
+/// A representation of an optional value.
+/// {@endtemplate}
+@Freezed(copyWith: false)
+class FOptional<T extends Object?> with _$FOptional<T> {
+  /// {@macro common.optional}
+  const FOptional._();
+
+  /// Creates an [FOptional] with a present value.
+  const factory FOptional.some(
+    /// The underlying value.
+    T value,
+  ) = FSome<T>;
+
+  /// Creates an [FOptional] with an absent value.
+  const factory FOptional.none() = FNone<T>;
 }
 /*x{% endif %}*/
